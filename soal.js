@@ -13,11 +13,11 @@ Class tersebut juga bisa memanggil fungsi dengan proses sebagai berikut:
 ● SetAge: mengubah umur student dengan mengirimkan satu parameter ke dalam fungsi berupa angka *clear
 ● SetDateOfBirth: mengubah tanggal lahir student dengan mengirimkan satu parameter ke dalam fungsi berupa teks *clear
 ● SetGender: mengubah gender student dengan mengirimkan satu parameter ke dalam fungsi berupa teks, dan hanya
-bisa menerima nilai Male atau Female
-● addHobby: menambah hobi dengan mengirimkan satu parameter ke dalam fungsi berupa teks
+bisa menerima nilai Male atau Female *clear
+● addHobby: menambah hobi dengan mengirimkan satu parameter ke dalam fungsi berupa teks *clear
 ● removeHobby: menghapus list hobi yang ada dengan mengirimkan satu parameter berupa teks, yang merupakan hobi
-apa yang akan dihapus
-● getData: menampilkan seluruh data atribut murid
+apa yang akan dihapus *clear
+● getData: menampilkan seluruh data atribut murid *clear
 */
 
 
@@ -26,15 +26,32 @@ class Student{
         this.name = name;
         this.age = age;
         this.dateOfBirth = dateOfBirth;
-        // gender === "male" ? this.gender = "male" : this.gender="female"; //di form bikin hanya 2 pilihan
-        this.gender = "male" || "female";
+        gender === "male" ? this.gender = "male" : this.gender="female"; //di form bikin hanya 2 pilihan
+        // this.gender = "male" || "female";
         this.studentID = studentID;
         this.hobbies = [];
     }
 
     learn(hobby){
-        return this.hobbies.push(hobby)
+        let foo;
+        for (let i = 0; i < hobby.length; i++) {
+            foo = this.hobbies.push(hobby[i])
+        }
+        return foo
     }
+
+    removeHobby(rH){
+        for (let index = 0; index < this.hobbies.length; index++) {
+            if (this.hobbies.includes(rH)){
+                if (rH === this.hobbies[index]){
+                    return this.hobbies.splice(index,1)
+                }
+            } else{
+                return `not found`
+            }
+        }
+    }
+
 
     remove(index = this.hobbies[-1], jumlah=1){
         return this.hobbies.splice(index, jumlah)
@@ -64,35 +81,34 @@ class Student{
         }
     }
 
-    // set gender(gender){
-    //     if(gender === "male"){
-    //         this.gender = "male"
-    //     } else{
-    //         this.gender = "female"
-    //     }
-    //     // (gender === "male") ? this.gender = "male" : this.gender = "female";
-    // }
+    set genderChange(gC){
+        (gC === "male") ? this.gender="male" : this.gender = "female"
+    }
+
+    get data(){
+        return `Name:${this.name}, age:${this.age}, DoB:${this.dateOfBirth}, Gender:${this.gender}, ID: ${this.studentID}, hobby: ${this.hobbies}`
+    }
 }
 
 
 // buat percobaan
 let Afgan = new Student({
-    name : "Afgan",
+    name : "Afgan 123",
     age : 30,
     dateOfBirth : "30 desember 1980",
-    gender : "female",
+    gender : "alien",
     studentID : "asdf2020",
 })
 
-Afgan.learn("cooking")
-Afgan.learn("singing")
-Afgan.learn("running")
-Afgan.learn("reading")
-Afgan.remove(2,2)
+Afgan.learn(["cooking", "singing", "running", "reading"])
+Afgan.removeHobby("singing")
 
 
 Afgan.nameChange = "Raisa"
 Afgan.ageChange = 28
 Afgan.dateOfBirthChange = "1 januari 2020"
+Afgan.genderChange = "female"
 
 console.log(Afgan)
+
+console.log("cek data: "+Afgan.data)
