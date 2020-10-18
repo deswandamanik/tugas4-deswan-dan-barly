@@ -9,9 +9,9 @@ Buatlah sebuah Class Student, yang memiliki atribut berikut:
 
 
 Class tersebut juga bisa memanggil fungsi dengan proses sebagai berikut:
-● SetName: mengubah nama student dengan mengirimkan satu parameter ke dalam fungsi berupa teks
-● SetAge: mengubah umur student dengan mengirimkan satu parameter ke dalam fungsi berupa angka
-● SetDateOfBirth: mengubah tanggal lahir student dengan mengirimkan satu parameter ke dalam fungsi berupa teks
+● SetName: mengubah nama student dengan mengirimkan satu parameter ke dalam fungsi berupa teks *clear
+● SetAge: mengubah umur student dengan mengirimkan satu parameter ke dalam fungsi berupa angka *clear
+● SetDateOfBirth: mengubah tanggal lahir student dengan mengirimkan satu parameter ke dalam fungsi berupa teks *clear
 ● SetGender: mengubah gender student dengan mengirimkan satu parameter ke dalam fungsi berupa teks, dan hanya
 bisa menerima nilai Male atau Female
 ● addHobby: menambah hobi dengan mengirimkan satu parameter ke dalam fungsi berupa teks
@@ -22,17 +22,22 @@ apa yang akan dihapus
 
 
 class Student{
-    constructor({name, age, dateOfBirth, gender, studentID, hobbies}){
+    constructor({name, age, dateOfBirth, gender, studentID}){
         this.name = name;
         this.age = age;
         this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
+        // gender === "male" ? this.gender = "male" : this.gender="female"; //di form bikin hanya 2 pilihan
+        this.gender = "male" || "female";
         this.studentID = studentID;
-        this.hobbies = []
+        this.hobbies = [];
     }
 
     learn(hobby){
         return this.hobbies.push(hobby)
+    }
+
+    remove(index = this.hobbies[-1], jumlah=1){
+        return this.hobbies.splice(index, jumlah)
     }
 
     set nameChange(nC){
@@ -51,12 +56,23 @@ class Student{
         }
     }
 
+    set dateOfBirthChange(dOBC){
+        if(/[A-Za-z0-9]/.test(dOBC)){
+            this.dateOfBirth = dOBC;
+        } else {
+            throw Error ("tidak valid")
+        }
+    }
 
+    // set gender(gender){
+    //     if(gender === "male"){
+    //         this.gender = "male"
+    //     } else{
+    //         this.gender = "female"
+    //     }
+    //     // (gender === "male") ? this.gender = "male" : this.gender = "female";
+    // }
 }
-
-
-
-
 
 
 // buat percobaan
@@ -64,15 +80,19 @@ let Afgan = new Student({
     name : "Afgan",
     age : 30,
     dateOfBirth : "30 desember 1980",
-    gender : "male",
+    gender : "female",
     studentID : "asdf2020",
 })
 
 Afgan.learn("cooking")
 Afgan.learn("singing")
+Afgan.learn("running")
+Afgan.learn("reading")
+Afgan.remove(2,2)
 
 
 Afgan.nameChange = "Raisa"
 Afgan.ageChange = 28
+Afgan.dateOfBirthChange = "1 januari 2020"
 
 console.log(Afgan)
