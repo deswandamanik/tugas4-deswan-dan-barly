@@ -2,9 +2,9 @@
 Buatlah sebuah Class Student, yang memiliki atribut berikut:
 ● Name, *clear
 ● Age, *clear
-● Date of Birth, *clear
+● Date of Birth, *clear ===>>> ???
 ● Gender *clear
-● Student ID (bisa berupa angka atau teks), dan *clear
+● Student ID (bisa berupa angka atau teks), dan *clear ==>>> ???
 ● Hobbies (bisa menampung lebih dari 1 hobi). *clear
 
 
@@ -23,11 +23,15 @@ apa yang akan dihapus *clear
 
 class Student{
     constructor({name, age, dateOfBirth, gender, studentID}){
-        this.name = name;
-        this.age = age;
+        typeof(name) === "string" ? this.name = name.toLowerCase() : this.name = `input harus huruf`
+        typeof(age) === "number" ? this.age = age : this.age = "masukan angka"
         this.dateOfBirth = dateOfBirth;
-        gender === "male" ? this.gender = "male" : this.gender="female"; //di form bikin hanya 2 pilihan
-        // this.gender = "male" || "female";
+        if (gender.toLowerCase() === "male") {
+            this.gender = "male"
+            } else if(gender.toLowerCase() === "female"){
+                this.gender = "female"
+            } else {this.gender = "not valid"}
+        // gender === "male" ? this.gender = "male" : this.gender="female"; //di form bikin hanya 2 pilihan
         this.studentID = studentID;
         this.hobbies = [];
     }
@@ -52,14 +56,9 @@ class Student{
         }
     }
 
-
-    remove(index = this.hobbies[-1], jumlah=1){
-        return this.hobbies.splice(index, jumlah)
-    }
-
     set nameChange(nC){
         if(/[A-Za-z]/.test(nC)){
-            [this.name] = nC.split(" ");
+            [this.name] = nC.toLowerCase().split(" ");
         } else {
             throw Error ("salah input")
         }
@@ -82,7 +81,7 @@ class Student{
     }
 
     set genderChange(gC){
-        (gC === "male") ? this.gender="male" : this.gender = "female"
+        (gC.toLowerCase() === "male") ? this.gender="male" : this.gender = "female"
     }
 
     get data(){
@@ -93,7 +92,7 @@ class Student{
 
 // buat percobaan
 let Afgan = new Student({
-    name : "Afgan 123",
+    name : 1234,
     age : 30,
     dateOfBirth : "30 desember 1980",
     gender : "alien",
@@ -111,4 +110,4 @@ Afgan.genderChange = "female"
 
 console.log(Afgan)
 
-console.log("cek data: "+Afgan.data)
+// console.log("cek data: "+Afgan.data)
